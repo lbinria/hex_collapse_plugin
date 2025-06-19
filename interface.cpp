@@ -22,14 +22,13 @@ extern "C" {
 #ifdef WIN32
 extern "C"
 {
-	// __declspec (dllexport) Tatooine *allocator()
-	// {
-	// 	return new Tatooine();
-	// }
+	__declspec (dllexport) HexCollapseComponent* allocator(IApp &app) {
+		return new HexCollapseComponent(app);
+	}
 
-	// __declspec (dllexport) void deleter(Tatooine *ptr)
-	// {
-	// 	delete ptr;
-	// }
+	__declspec (dllexport) void deleter(HexCollapseComponent *ptr) {
+		delete ptr;
+	}
+
 }
 #endif
