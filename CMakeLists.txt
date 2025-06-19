@@ -39,6 +39,21 @@ set(IMGUI_SOURCES
   # ${salamesh_SOURCE_DIR}/include/imgui/imgui_demo.cpp
 )
 
+# ULTIMAILLE
+
+# Get development version of ultimaille directly from git repository 
+include(FetchContent)
+FetchContent_Declare(
+  ultimaille
+  GIT_REPOSITORY https://github.com/ssloy/ultimaille
+  GIT_TAG        v2.0.0
+)
+FetchContent_MakeAvailable(ultimaille)
+
+# Add ultimaille directory as include
+include_directories(${ultimaille_SOURCE_DIR})
+link_libraries(${CMAKE_DL_LIBS} ultimaille m $<$<BOOL:${OpenMP_CXX_FOUND}>:OpenMP::OpenMP_CXX>)
+
 add_library(hex_collapse_plugin SHARED
   hex_collapse.cpp hex_collapse.h
   interface.cpp

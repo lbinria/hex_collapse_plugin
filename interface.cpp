@@ -1,10 +1,14 @@
 #include "hex_collapse.h"
 
+#include <states.h>
+// Ultimaille
+#include <ultimaille/all.h>
+
 #if defined(__linux__) || defined(__APPLE__)
 
 extern "C" {
-	HexCollapseComponent* allocator() {
-		return new HexCollapseComponent;
+	HexCollapseComponent* allocator(Hexahedra &hex, InputState &st) {
+		return new HexCollapseComponent(hex, st);
 	}
 
 	void deleter(HexCollapseComponent *ptr) {
