@@ -1,4 +1,7 @@
+#pragma once
+
 // Salamesh core
+#include <app_interface.h>
 #include <component.h>
 #include <states.h>
 #include <renderer.h>
@@ -14,10 +17,12 @@ using namespace UM;
 
 struct HexCollapseComponent : public Component {
 
-	HexCollapseComponent(Hexahedra &hex, Renderer &renderer, InputState &st) :
-		hex(hex), 
-		renderer(renderer), 
-		st(st) {}
+	HexCollapseComponent(IApp &app) :
+		app(app),
+		hex(app.getHexahedra()),
+		renderer(app.getRenderer()),
+		st(app.getInputState())
+		{}
 
 	void init() final override;
 	void setup() final override;
@@ -33,6 +38,7 @@ struct HexCollapseComponent : public Component {
 
 	private:
 
+	IApp &app;
 	Hexahedra &hex;
 	Renderer &renderer;
 	InputState &st;

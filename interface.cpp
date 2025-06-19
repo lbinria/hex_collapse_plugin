@@ -8,8 +8,8 @@
 #if defined(__linux__) || defined(__APPLE__)
 
 extern "C" {
-	HexCollapseComponent* allocator(Hexahedra &hex, Renderer &renderer, InputState &st) {
-		return new HexCollapseComponent(hex, renderer, st);
+	HexCollapseComponent* allocator(IApp &app) {
+		return new HexCollapseComponent(app);
 	}
 
 	void deleter(HexCollapseComponent *ptr) {
