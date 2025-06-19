@@ -55,3 +55,24 @@ add_library(hex_collapse_plugin SHARED
   interface.cpp
   ${IMGUI_SOURCES}
 )
+
+# Generate JSON settings file after build
+file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/settings.json "
+{
+	\"modules\": [
+		\"${CMAKE_CURRENT_BINARY_DIR}\"
+	]
+}
+")
+
+# Get the build directory of the fetched content
+get_property(salamesh_build_dir DIRECTORY ${salamesh_SOURCE_DIR} PROPERTY BINARY_DIR)
+message(STATUS "Salamesh build directory: ${salamesh_build_dir}")
+
+# Add custom target to build plugin & run salamesh with the plugin
+add_custom_target(run_salamesh
+  # COMMAND ${salamesh_build_dir}/salamesh ${salamesh_args}
+  COMMAND ${salamesh_build_dir}/salamesh '{"settings_path": \"${CMAKE_CURRENT_BINARY_DIR}/settings.json\", \"models\": []}'
+  DEPENDS hex_collapse_plugin salamesh
+  COMMENT "Running Salamesh with current plugin"
+)
