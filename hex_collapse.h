@@ -40,7 +40,6 @@ struct HexCollapseComponent : public Component {
 	bool is_init;
 	bool is_setup;
 
-	// CellFacetAttribute<float> cell_highlights_attr;
 	std::vector<float> cell_highlights_attr;
 
 	std::vector<int> layers;

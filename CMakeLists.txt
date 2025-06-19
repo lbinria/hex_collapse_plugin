@@ -15,8 +15,8 @@ include_directories(${salamesh_SOURCE_DIR}/core)
 # Link to salamesh core
 link_libraries(salamesh_core)
 
+# Include ImGui directory
 include_directories(${salamesh_SOURCE_DIR}/include/imgui)
-# target_include_directories(salamesh PRIVATE include/imgui)
 
 
 set(IMGUI_SOURCES
@@ -33,10 +33,6 @@ set(IMGUI_SOURCES
   ${salamesh_SOURCE_DIR}/include/imgui/backends/imgui_impl_opengl3.h
   ${salamesh_SOURCE_DIR}/include/imgui/backends/imgui_impl_opengl3.cpp
   ${salamesh_SOURCE_DIR}/include/imgui/backends/imgui_impl_opengl3_loader.h
-  # ${salamesh_SOURCE_DIR}/include/imgui/imgui.cpp
-  # ${salamesh_SOURCE_DIR}/include/imgui/imgui_draw.cpp
-  # ${salamesh_SOURCE_DIR}/include/imgui/imgui_widgets.cpp
-  # ${salamesh_SOURCE_DIR}/include/imgui/imgui_demo.cpp
 )
 
 # ULTIMAILLE

@@ -7,7 +7,6 @@ void HexCollapseComponent::init() {
 	std::chrono::steady_clock::time_point begin2 = std::chrono::steady_clock::now();
 	hex.connect();
 
-	// cell_highlights_attr.ptr->resize(hex.ncells());
 	cell_highlights_attr.resize(hex.ncells(), 0.f);
 	cell_highlights_attr.assign(hex.ncells(), 0.f);
 	renderer.setHighlight(cell_highlights_attr);
@@ -71,8 +70,6 @@ void HexCollapseComponent::mouse_move(double x, double y) {
 	if (!st.is_edge_hovered() || !st.is_edge_changed()) 
 		return;
 
-	// CellFacetAttribute<float> cell_highlights_attr(hex, 0.f);
-
 	// Remove last hovered cells
 	for (auto c : last_hovered_cells) {
 		if (cell_highlights_attr[c] >= 1.f && cell_highlights_attr[c] < 2.f)
@@ -94,15 +91,12 @@ void HexCollapseComponent::mouse_move(double x, double y) {
 	}
 
 	renderer.setHighlight(cell_highlights_attr);
-	// renderer.setHighlight(cell_highlights_attr.ptr->data);
 }
 
 void HexCollapseComponent::mouse_button(int button, int action, int mods) {
 
 	if (button != GLFW_MOUSE_BUTTON_LEFT || action != GLFW_PRESS || !st.is_edge_hovered())
 		return;
-
-	// CellFacetAttribute<float> cell_highlights_attr(hex, 0.f);
 
 	// Remove last selected
 	for (auto c : selected_cells) {
@@ -117,7 +111,6 @@ void HexCollapseComponent::mouse_button(int button, int action, int mods) {
 		cell_highlights_attr[c] = 2.f;
 	}
 
-	// renderer.setHighlight(cell_highlights_attr.ptr->data);
 	renderer.setHighlight(cell_highlights_attr);
 
 	selected_layer = layers[st.hovered_edge];
