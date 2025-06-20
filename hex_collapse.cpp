@@ -67,7 +67,7 @@ bool HexCollapseComponent::draw_gui(ImGuiContext *ctx) {
 }
 
 void HexCollapseComponent::mouse_move(double x, double y) {
-	if (!st.is_edge_hovered() || !st.is_edge_changed()) 
+	if (!hex.connected() || !st.is_edge_hovered() || !st.is_edge_changed()) 
 		return;
 
 	// Remove last hovered cells
@@ -95,7 +95,7 @@ void HexCollapseComponent::mouse_move(double x, double y) {
 
 void HexCollapseComponent::mouse_button(int button, int action, int mods) {
 
-	if (button != GLFW_MOUSE_BUTTON_LEFT || action != GLFW_PRESS || !st.is_edge_hovered())
+	if (!(is_init && is_setup) || button != GLFW_MOUSE_BUTTON_LEFT || action != GLFW_PRESS || !st.is_edge_hovered())
 		return;
 
 	// Remove last selected
@@ -117,6 +117,10 @@ void HexCollapseComponent::mouse_button(int button, int action, int mods) {
 }
 
 void HexCollapseComponent::key_event(int key, int scancode, int action, int mods) {
+
+	if (!(is_init && is_setup))
+		return;
+
 	if (key == GLFW_KEY_ENTER && action == GLFW_PRESS) {
 		validate_callback();
 	}
