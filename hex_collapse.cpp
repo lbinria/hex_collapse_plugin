@@ -67,7 +67,7 @@ bool HexCollapseComponent::draw_gui(ImGuiContext *ctx) {
 }
 
 void HexCollapseComponent::mouse_move(double x, double y) {
-	if (!hex.connected() || !st.is_edge_hovered() || !st.is_edge_changed()) 
+	if (!hex.connected() || !st.edge.is_hovered() || !st.edge.is_changed()) 
 		return;
 
 	// Remove last hovered cells
@@ -78,7 +78,7 @@ void HexCollapseComponent::mouse_move(double x, double y) {
 
 	hovered_cells.clear();
 	for (auto h : hex.iter_halfedges()) {
-		if (layers[h] == layers[st.hovered_edge])
+		if (layers[h] == layers[st.edge.get_hovered()])
 			hovered_cells.push_back(h.cell());
 	}
 
@@ -95,7 +95,7 @@ void HexCollapseComponent::mouse_move(double x, double y) {
 
 void HexCollapseComponent::mouse_button(int button, int action, int mods) {
 
-	if (!(is_init && is_setup) || button != GLFW_MOUSE_BUTTON_LEFT || action != GLFW_PRESS || !st.is_edge_hovered())
+	if (!(is_init && is_setup) || button != GLFW_MOUSE_BUTTON_LEFT || action != GLFW_PRESS || !st.edge.is_hovered())
 		return;
 
 	// Remove last selected
@@ -113,7 +113,7 @@ void HexCollapseComponent::mouse_button(int button, int action, int mods) {
 
 	renderer.setHighlight(cell_highlights_attr);
 
-	selected_layer = layers[st.hovered_edge];
+	selected_layer = layers[st.edge.get_hovered()];
 }
 
 void HexCollapseComponent::key_event(int key, int scancode, int action, int mods) {
@@ -136,8 +136,8 @@ void HexCollapseComponent::validate_callback() {
 	// Update rendering
 	// Time elapsed
 	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-	renderer.to_gl(hex);
-	renderer.update();
+	renderer.to_gl();
+	renderer.push();
 	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 	std::cout << "update in: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count() << "ms" << std::endl;
 

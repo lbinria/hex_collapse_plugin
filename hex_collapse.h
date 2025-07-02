@@ -24,12 +24,13 @@ struct HexCollapseComponent : public Component {
 		st(app.getInputState())
 		{}
 
+	// Lifecycle functions
 	void init() final override;
 	void setup() final override;
 	void cleanup() final override;
-
 	bool draw_gui(ImGuiContext *ctx) final override;
 
+	// Events functions
 	virtual void mouse_move(double x, double y) final override;
 	virtual void mouse_button(int button, int action, int mods) final override;
 	virtual void mouse_scroll(double xoffset, double yoffset) final override {}
