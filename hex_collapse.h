@@ -20,7 +20,7 @@ struct HexCollapseComponent : public Component {
 	HexCollapseComponent(IApp &app) :
 		app(app),
 		hex(app.getHexahedra()),
-		renderer(app.getRenderer()),
+		renderer(app.getCurrentRenderer()),
 		st(app.getInputState())
 		{}
 

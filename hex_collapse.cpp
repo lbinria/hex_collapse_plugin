@@ -136,7 +136,6 @@ void HexCollapseComponent::validate_callback() {
 	// Update rendering
 	// Time elapsed
 	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-	renderer.to_gl();
 	renderer.push();
 	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 	std::cout << "update in: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count() << "ms" << std::endl;
