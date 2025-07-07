@@ -5,12 +5,12 @@
 
 void HexCollapseComponent::init() {
 	std::chrono::steady_clock::time_point begin2 = std::chrono::steady_clock::now();
-	auto &hex = app.getCurrentRenderer().getHexahedra();
+	auto &hex = app.getCurrentModel().getHexahedra();
 	hex.connect();
 
 	cell_highlights_attr.resize(hex.ncells(), 0.f);
 	cell_highlights_attr.assign(hex.ncells(), 0.f);
-	app.getCurrentRenderer().setHighlight(cell_highlights_attr);
+	app.getCurrentModel().setHighlight(cell_highlights_attr);
 
 	std::chrono::steady_clock::time_point end2 = std::chrono::steady_clock::now();
 	std::cout << "init in: " << std::chrono::duration_cast<std::chrono::milliseconds>(end2 - begin2).count() << "ms" << std::endl;
@@ -21,7 +21,7 @@ void HexCollapseComponent::init() {
 void HexCollapseComponent::setup() {
 
 	std::chrono::steady_clock::time_point bt = std::chrono::steady_clock::now();
-	auto &hex = app.getCurrentRenderer().getHexahedra();
+	auto &hex = app.getCurrentModel().getHexahedra();
 	// Compute hex layers
 	DisjointSet ds(hex.ncells() * 24);
 
@@ -68,7 +68,7 @@ bool HexCollapseComponent::draw_gui(ImGuiContext *ctx) {
 }
 
 void HexCollapseComponent::mouse_move(double x, double y) {
-	auto &hex = app.getCurrentRenderer().getHexahedra();
+	auto &hex = app.getCurrentModel().getHexahedra();
 
 	if (!hex.connected() || !st.edge.is_hovered() || !st.edge.is_changed()) 
 		return;
@@ -93,7 +93,7 @@ void HexCollapseComponent::mouse_move(double x, double y) {
 			cell_highlights_attr[c] = 1.f;
 	}
 
-	app.getCurrentRenderer().setHighlight(cell_highlights_attr);
+	app.getCurrentModel().setHighlight(cell_highlights_attr);
 }
 
 void HexCollapseComponent::mouse_button(int button, int action, int mods) {
@@ -114,7 +114,7 @@ void HexCollapseComponent::mouse_button(int button, int action, int mods) {
 		cell_highlights_attr[c] = 2.f;
 	}
 
-	app.getCurrentRenderer().setHighlight(cell_highlights_attr);
+	app.getCurrentModel().setHighlight(cell_highlights_attr);
 
 	selected_layer = layers[st.edge.get_hovered()];
 }
@@ -139,7 +139,7 @@ void HexCollapseComponent::validate_callback() {
 	// Update rendering
 	// Time elapsed
 	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-	app.getCurrentRenderer().push();
+	app.getCurrentModel().push();
 	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 	std::cout << "update in: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count() << "ms" << std::endl;
 
@@ -156,7 +156,7 @@ void HexCollapseComponent::validate_callback() {
 
 void HexCollapseComponent::collapse(/*, CellFacetAttribute<int> &emb_attr*/) {
 	
-	auto &hex = app.getCurrentRenderer().getHexahedra();
+	auto &hex = app.getCurrentModel().getHexahedra();
 
 	std::vector<int> layer;
 
