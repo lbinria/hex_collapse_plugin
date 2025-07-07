@@ -4,7 +4,7 @@
 #include <app_interface.h>
 #include <component.h>
 #include <states.h>
-#include <renderer.h>
+#include <model.h>
 // Ultimaille
 #include <ultimaille/all.h>
 // ImGui

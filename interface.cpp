@@ -1,7 +1,7 @@
 #include "hex_collapse.h"
 
 #include <states.h>
-#include <renderer.h>
+#include <model.h>
 // Ultimaille
 #include <ultimaille/all.h>
 
