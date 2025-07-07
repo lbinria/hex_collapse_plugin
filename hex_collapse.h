@@ -19,8 +19,6 @@ struct HexCollapseComponent : public Component {
 
 	HexCollapseComponent(IApp &app) :
 		app(app),
-		hex(app.getHexahedra()),
-		renderer(app.getCurrentRenderer()),
 		st(app.getInputState())
 		{}
 
@@ -40,8 +38,6 @@ struct HexCollapseComponent : public Component {
 	private:
 
 	IApp &app;
-	Hexahedra &hex;
-	Renderer &renderer;
 	InputState &st;
 
 	bool is_init;
