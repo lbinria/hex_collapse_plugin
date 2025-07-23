@@ -70,7 +70,7 @@ bool HexCollapseComponent::draw_gui(ImGuiContext *ctx) {
 void HexCollapseComponent::mouse_move(double x, double y) {
 	auto &hex = app.getCurrentModel().getHexahedra();
 
-	if (!hex.connected() || !st.edge.is_hovered() || !st.edge.is_changed()) 
+	if (!hex.connected() || !st.edge.anyHovered() || !st.edge.hasChanged()) 
 		return;
 
 	// Remove last hovered cells
@@ -81,7 +81,7 @@ void HexCollapseComponent::mouse_move(double x, double y) {
 
 	hovered_cells.clear();
 	for (auto h : hex.iter_halfedges()) {
-		if (layers[h] == layers[st.edge.get_hovered()])
+		if (layers[h] == layers[st.edge.getHovered()])
 			hovered_cells.push_back(h.cell());
 	}
 
@@ -98,7 +98,7 @@ void HexCollapseComponent::mouse_move(double x, double y) {
 
 void HexCollapseComponent::mouse_button(int button, int action, int mods) {
 
-	if (!(is_init && is_setup) || button != GLFW_MOUSE_BUTTON_LEFT || action != GLFW_PRESS || !st.edge.is_hovered())
+	if (!(is_init && is_setup) || button != GLFW_MOUSE_BUTTON_LEFT || action != GLFW_PRESS || !st.edge.anyHovered())
 		return;
 
 	// Remove last selected
@@ -116,7 +116,7 @@ void HexCollapseComponent::mouse_button(int button, int action, int mods) {
 
 	app.getCurrentModel().setHighlight(cell_highlights_attr);
 
-	selected_layer = layers[st.edge.get_hovered()];
+	selected_layer = layers[st.edge.getHovered()];
 }
 
 void HexCollapseComponent::key_event(int key, int scancode, int action, int mods) {
